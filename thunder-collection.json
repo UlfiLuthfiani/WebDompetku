@@ -1,0 +1,124 @@
+{
+  "clientName": "Thunder Client",
+  "collectionName": "DuitKu API",
+  "collectionId": "duitku-collection-001",
+  "dateExported": "2026-03-11",
+  "version": "1.1",
+  "folders": [
+    { "id": "f-auth", "name": "🔐 Auth", "containerId": "" },
+    { "id": "f-tx",   "name": "💰 Transaksi", "containerId": "" }
+  ],
+  "requests": [
+    {
+      "id": "r-health", "colId": "duitku-collection-001", "containerId": "",
+      "name": "🏥 Health Check", "url": "http://localhost:3000/api/v1/health",
+      "method": "GET", "sortNum": 0, "headers": [], "body": { "type": "none" }
+    },
+    {
+      "id": "r-register", "colId": "duitku-collection-001", "containerId": "f-auth",
+      "name": "Register", "url": "http://localhost:3000/api/v1/auth/register",
+      "method": "POST", "sortNum": 1,
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": { "type": "json", "raw": "{\n  \"name\": \"Budi Santoso\",\n  \"email\": \"budi@example.com\",\n  \"password\": \"password123\"\n}" }
+    },
+    {
+      "id": "r-login", "colId": "duitku-collection-001", "containerId": "f-auth",
+      "name": "Login", "url": "http://localhost:3000/api/v1/auth/login",
+      "method": "POST", "sortNum": 2,
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": { "type": "json", "raw": "{\n  \"email\": \"budi@example.com\",\n  \"password\": \"password123\"\n}" }
+    },
+    {
+      "id": "r-refresh", "colId": "duitku-collection-001", "containerId": "f-auth",
+      "name": "Refresh Token", "url": "http://localhost:3000/api/v1/auth/refresh",
+      "method": "POST", "sortNum": 3,
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": { "type": "json", "raw": "{}" }
+    },
+    {
+      "id": "r-me", "colId": "duitku-collection-001", "containerId": "f-auth",
+      "name": "Get Me", "url": "http://localhost:3000/api/v1/auth/me",
+      "method": "GET", "sortNum": 4,
+      "headers": [{ "name": "Authorization", "value": "Bearer {{token}}" }],
+      "body": { "type": "none" }
+    },
+    {
+      "id": "r-logout", "colId": "duitku-collection-001", "containerId": "f-auth",
+      "name": "Logout", "url": "http://localhost:3000/api/v1/auth/logout",
+      "method": "POST", "sortNum": 5,
+      "headers": [], "body": { "type": "none" }
+    },
+    {
+      "id": "r-categories", "colId": "duitku-collection-001", "containerId": "f-tx",
+      "name": "Get Kategori", "url": "http://localhost:3000/api/v1/transactions/categories",
+      "method": "GET", "sortNum": 6,
+      "headers": [{ "name": "Authorization", "value": "Bearer {{token}}" }],
+      "body": { "type": "none" }
+    },
+    {
+      "id": "r-summary", "colId": "duitku-collection-001", "containerId": "f-tx",
+      "name": "Get Summary", "url": "http://localhost:3000/api/v1/transactions/summary",
+      "method": "GET", "sortNum": 7,
+      "headers": [{ "name": "Authorization", "value": "Bearer {{token}}" }],
+      "body": { "type": "none" }
+    },
+    {
+      "id": "r-get-all", "colId": "duitku-collection-001", "containerId": "f-tx",
+      "name": "Get Semua Transaksi", "url": "http://localhost:3000/api/v1/transactions",
+      "method": "GET", "sortNum": 8,
+      "headers": [{ "name": "Authorization", "value": "Bearer {{token}}" }],
+      "body": { "type": "none" }
+    },
+    {
+      "id": "r-get-income", "colId": "duitku-collection-001", "containerId": "f-tx",
+      "name": "Filter Pemasukan", "url": "http://localhost:3000/api/v1/transactions?type=income",
+      "method": "GET", "sortNum": 9,
+      "headers": [{ "name": "Authorization", "value": "Bearer {{token}}" }],
+      "body": { "type": "none" }
+    },
+    {
+      "id": "r-get-expense", "colId": "duitku-collection-001", "containerId": "f-tx",
+      "name": "Filter Pengeluaran", "url": "http://localhost:3000/api/v1/transactions?type=expense",
+      "method": "GET", "sortNum": 10,
+      "headers": [{ "name": "Authorization", "value": "Bearer {{token}}" }],
+      "body": { "type": "none" }
+    },
+    {
+      "id": "r-create-income", "colId": "duitku-collection-001", "containerId": "f-tx",
+      "name": "Tambah Pemasukan", "url": "http://localhost:3000/api/v1/transactions",
+      "method": "POST", "sortNum": 11,
+      "headers": [
+        { "name": "Authorization", "value": "Bearer {{token}}" },
+        { "name": "Content-Type", "value": "application/json" }
+      ],
+      "body": { "type": "json", "raw": "{\n  \"type\": \"income\",\n  \"amount\": 5000000,\n  \"category\": \"Gaji\",\n  \"description\": \"Gaji bulan Maret\",\n  \"date\": \"2026-03-01\"\n}" }
+    },
+    {
+      "id": "r-create-expense", "colId": "duitku-collection-001", "containerId": "f-tx",
+      "name": "Tambah Pengeluaran", "url": "http://localhost:3000/api/v1/transactions",
+      "method": "POST", "sortNum": 12,
+      "headers": [
+        { "name": "Authorization", "value": "Bearer {{token}}" },
+        { "name": "Content-Type", "value": "application/json" }
+      ],
+      "body": { "type": "json", "raw": "{\n  \"type\": \"expense\",\n  \"amount\": 25000,\n  \"category\": \"Makanan\",\n  \"description\": \"Makan siang nasi padang\",\n  \"date\": \"2026-03-11\"\n}" }
+    },
+    {
+      "id": "r-update", "colId": "duitku-collection-001", "containerId": "f-tx",
+      "name": "Update Transaksi", "url": "http://localhost:3000/api/v1/transactions/1",
+      "method": "PUT", "sortNum": 13,
+      "headers": [
+        { "name": "Authorization", "value": "Bearer {{token}}" },
+        { "name": "Content-Type", "value": "application/json" }
+      ],
+      "body": { "type": "json", "raw": "{\n  \"amount\": 30000,\n  \"description\": \"Makan siang + minuman\"\n}" }
+    },
+    {
+      "id": "r-delete", "colId": "duitku-collection-001", "containerId": "f-tx",
+      "name": "Hapus Transaksi", "url": "http://localhost:3000/api/v1/transactions/1",
+      "method": "DELETE", "sortNum": 14,
+      "headers": [{ "name": "Authorization", "value": "Bearer {{token}}" }],
+      "body": { "type": "none" }
+    }
+  ]
+}

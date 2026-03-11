@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>DuitKu — Masuk</title>
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body class="auth-page">
+<div class="auth-wrap">
+
+  <div class="auth-left">
+    <div class="leaf leaf-1"></div>
+    <div class="leaf leaf-2"></div>
+    <div class="leaf leaf-3"></div>
+    <div class="brand-box">
+      <div class="logo">
+        <div class="logo-mark">💰</div>
+        <span class="logo-name">Dompetku</span>
+      </div>
+      <h1 class="auth-headline">Catat, Pantau, dan <br/>Kelola Keuangan.</h1>
+      <p class="auth-sub">Aplikasi pencatat keuangan pribadi yang aman & mudah</p>
+    </div>
+  </div>
+
+  <div class="auth-right">
+    <div class="form-card">
+      <div class="form-head">
+        <h2>Selamat datang 👋</h2>
+        <p>Masuk ke akun kamu</p>
+      </div>
+      <div id="err" class="alert alert-error hidden"></div>
+      <div id="ok"  class="alert alert-success hidden"></div>
+
+      <div class="fgroup">
+        <label>Email</label>
+        <div class="iw"><span class="ico">✉️</span>
+          <input type="email" id="email" placeholder="kamu@email.com" autocomplete="email"/>
+        </div>
+      </div>
+      <div class="fgroup">
+        <label>Password</label>
+        <div class="iw"><span class="ico">🔒</span>
+          <input type="password" id="pass" placeholder="••••••••" autocomplete="current-password"/>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-full" id="btn" onclick="doLogin()">Masuk</button>
+      <p class="form-foot">Belum punya akun? <a href="register.html" class="link">Daftar sekarang</a></p>
+    </div>
+  </div>
+
+</div>
+<script src="api.js"></script>
+<script>
+  if(localStorage.getItem('accessToken')) location.href='dashboard.html';
+
+  async function doLogin(){
+    const email=document.getElementById('email').value.trim();
+    const pass=document.getElementById('pass').value;
+    const err=document.getElementById('err');
+    const ok=document.getElementById('ok');
+    const btn=document.getElementById('btn');
+    err.classList.add('hidden'); ok.classList.add('hidden');
+    if(!email||!pass){err.textContent='Isi semua kolom ya.';err.classList.remove('hidden');return;}
+    btn.classList.add('loading'); btn.textContent='Memuat...';
+    try{
+      const d=await api.login(email,pass);
+      localStorage.setItem('accessToken',d.accessToken);
+      localStorage.setItem('user',JSON.stringify(d.user));
+      ok.textContent=`Halo, ${d.user.name}! Mengalihkan...`;ok.classList.remove('hidden');
+      setTimeout(()=>location.href='dashboard.html',900);
+    }catch(e){
+      err.textContent=e.message||'Login gagal.';err.classList.remove('hidden');
+    }finally{btn.classList.remove('loading');btn.textContent='Masuk';}
+  }
+  document.addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+</script>
+</body>
+</html>
